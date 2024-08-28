@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    padding: 0;
+    margin: 0;
+    background: #252525;
+    height: 100vh;
+    width: 100vw;
+    color: #fff;
+    z-index: 1;
+    font-family: -apple-system, 'PermanentMarker';
+  }
+}
+@font-face {
+  font-family: 'PermanentMarker';
+  src: url('../../public/fonts/PermanentMarker.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 @layer utilities {
   .sort-row-flex {
     @apply flex flex-row items-center;
