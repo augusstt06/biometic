@@ -6,7 +6,7 @@
   body {
     padding: 0;
     margin: 0;
-    background: #252525;
+    background: #2b2f3d;
     height: 100vh;
     width: 100vw;
     color: #fff;
@@ -27,8 +27,11 @@
   .sort-col-flex {
     @apply flex flex-col items-center;
   }
-
   .simple-transition {
     @apply transition ease-in-out duration-500;
+  }
+
+  .fade-in {
+    @apply transition-opacity duration-[2000ms];
   }
 }

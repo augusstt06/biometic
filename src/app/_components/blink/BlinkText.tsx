@@ -31,7 +31,7 @@ export default function TypingText(props: Props) {
     }
   })
   return (
-    <div className="absolute top-[35%] left-1/2 transform -translate-x-1/2 text-4xl">
+    <div className="left-1/2 relative text-4xl transform -translate-x-1/2">
       {mainText}
       <span className="animate-blink inline-block bg-white w-[0.5rem] h-[2.5rem] ml-1 mb-3 align-middle"></span>
     </div>
