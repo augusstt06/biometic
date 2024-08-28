@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .sort-row-flex {
+    @apply flex flex-row items-center;
+  }
+  .sort-col-flex {
+    @apply flex flex-col items-center;
+  }
+
+  .simple-transition {
+    @apply transition ease-in-out duration-500;
+  }
+}
