@@ -1,8 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Weather ChatBot
+## Overview
+Open AI (Chat GPT) API와 [Weatherstack API](https://weatherstack.com/documentation)를 사용한 날씨 챗봇 어플리케이션
+
+- Weatherstack API를 사용해 특정 위치의 날씨를 보여준다.
+- 해당 날씨를 기준으로 AI 를 사용해 옷차림, 활동 추천 등 여러 카테고리의 조언을 간편하게 구할수 있다.
+
+## Stack
+<div>
+  <img src="https://img.shields.io/badge/next js 14-000000?style=for-the-badge&logo=nextdotjs&logoColor=#000000">
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white">
+  <img src="https://img.shields.io/badge/tailwind css-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white">
+</div>
+<br/>
+<div>
+  <img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white">
+  <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white">
+  <img src="https://img.shields.io/badge/openai-412991?style=for-the-badge&logo=openai&logoColor=white">
+</div>
+
+## Structure
+```bash
+src
+└── app
+    ├── (route)
+    ├── _components
+    ├── _modules
+    │     ├── fetch
+    │     └── util
+    ├── globals.css
+    ├── layout.tsx
+    └── page.tsx
+```
+
 
 ## Getting Started
-
-First, run the development server:
 
 ```bash
 npm run dev
@@ -13,36 +44,3 @@ pnpm dev
 # or
 bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## File Structure
-
-```bash
-src
-└── app
-    ├── (route)
-    ├── _components
-    ├── globals.css
-    ├── layout.tsx
-    └── page.tsx
-```
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
