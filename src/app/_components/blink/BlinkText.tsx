@@ -2,16 +2,16 @@ import { type Dispatch, type SetStateAction, useEffect, useState } from 'react'
 
 type Props = {
   text: string
-  setIsTypingComplete: Dispatch<SetStateAction<boolean>>
+  setIsBlinkComplete: Dispatch<SetStateAction<boolean>>
 }
 
 export default function TypingText(props: Props) {
-  const { text, setIsTypingComplete } = props
+  const { text, setIsBlinkComplete } = props
   const [mainText, setMainText] = useState<string>('')
   const [count, setCount] = useState<number>(0)
 
   useEffect(() => {
-    setIsTypingComplete(false)
+    setIsBlinkComplete(false)
     const typingText = text || ''
     const interval = setInterval(() => {
       setMainText((mainText) => {
@@ -23,7 +23,7 @@ export default function TypingText(props: Props) {
     }, 170)
     if (count === typingText.length) {
       clearInterval(interval)
-      setIsTypingComplete(true)
+      setIsBlinkComplete(true)
     }
 
     return () => {
