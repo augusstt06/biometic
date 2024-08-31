@@ -5,9 +5,12 @@ import BlinkText from '@/app/_components/blink/BlinkText'
 import Button from '@/app/_components/button/Button'
 import InputWithSelect from '@/app/_components/input/InputWithSelect'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
+import { useCacheStore } from '@/app/_store/cachingData'
 
 export default function Home() {
-  const [isCachingDataExist, setIsCachingDataExist] = useState<boolean>(false)
+  const { isCachingDataExist, setIsCachingDataExist, updateCacheStatus } =
+    useCacheStore()
+
   const [isBlinkComplete, setIsBlinkComplete] = useState<boolean>(false)
   const [location, setLocation] = useState<string>('')
   const [selectValue, setSelectValue] = useState<string>('국내')
@@ -28,12 +31,10 @@ export default function Home() {
     }
     localStorage.setItem('location', JSON.stringify(location))
     setIsCachingDataExist(true)
+    setLocation('')
     alert(`Success ${selectValue}`)
   }
   useEffect(() => {
-    const updateCacheStatus = () => {
-      setIsCachingDataExist(localStorage.getItem('location') !== null)
-    }
     updateCacheStatus()
     window.addEventListener('storage', updateCacheStatus)
     return () => {
