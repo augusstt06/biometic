@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 import { type Weather } from '@/app/_type/api'
 
@@ -7,9 +8,17 @@ type State = {
   setWeather: (weather: Weather) => void
 }
 
-export const useWeatherStore = create<State>((set) => ({
-  weather: null,
-  setWeather: (weatherData: Weather) => {
-    set({ weather: weatherData })
-  },
-}))
+export const useWeatherStore = create<State>()(
+  persist(
+    (set) => ({
+      weather: null,
+      setWeather: (weatherData: Weather) => {
+        set({ weather: weatherData })
+      },
+    }),
+    {
+      name: 'weather',
+      getStorage: () => localStorage,
+    },
+  ),
+)
