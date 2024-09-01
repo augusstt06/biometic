@@ -6,7 +6,7 @@ export default function Nav() {
   const { isCachingDataExist } = useCacheStore()
   return (
     <nav
-      className={`h-20 grid grid-cols-5 fixed w-full fade-in ${isCachingDataExist ? 'opacity-100' : 'opacity-0'} bg-[#2b2f3d]`}
+      className={`h-20 grid grid-cols-5 fixed w-full fade-in bg-white ${isCachingDataExist ? 'opacity-100' : 'opacity-0'} bg-opacity-30`}
     >
       <section className=" place-content-center text-center">
         Weather AI

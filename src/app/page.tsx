@@ -2,21 +2,16 @@
 import { useEffect, useState } from 'react'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import dynamic from 'next/dynamic'
 
 import InitialInputForm from '@/app/_components/organisms/form/initialInputForm'
 import MainTextForm from '@/app/_components/organisms/form/mainTextForm'
+import WeatherForm from '@/app/_components/organisms/form/weatherForm'
 import { fetchingWeather } from '@/app/_modules/api/fetchingWeather'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
+import { weatherClassificationToBackground } from '@/app/_modules/utils/weather'
 import { useCacheStore } from '@/app/_store/cachingData'
 import { useWeatherStore } from '@/app/_store/weatherData'
 
-const WeatherForm = dynamic(
-  async () => import('@/app/_components/organisms/form/weatherForm'),
-  {
-    ssr: false,
-  },
-)
 export default function Home() {
   const queryClient = useQueryClient()
   const { weather, setWeather } = useWeatherStore()
@@ -81,7 +76,9 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="grid-row-3 grid h-screen">
+    <main
+      className={`grid-row-3 grid h-screen ${weatherClassificationToBackground(weather.weather[0].main)}`}
+    >
       {!isCachingDataExist && (
         <section className="place-content-center grid-row-2 grid w-full grid-cols-5 row-span-2 gap-8">
           <MainTextForm setIsBlinkComplete={setIsBlinkComplete} />
@@ -98,9 +95,7 @@ export default function Home() {
         </section>
       )}
 
-      <section>
-        {isMounted && weather && <WeatherForm weather={weather} />}
-      </section>
+      <section>{isMounted && <WeatherForm />}</section>
       <div>{isBlinkComplete}</div>
     </main>
   )

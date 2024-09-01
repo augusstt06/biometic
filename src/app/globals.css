@@ -28,6 +28,12 @@
   font-style: normal;
 }
 @layer utilities {
+  .bg-cloudy {
+    background-image: url('../../public/bg/cloudy.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   .sort-row-flex {
     @apply flex flex-row items-center;
   }
