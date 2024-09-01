@@ -1,12 +1,11 @@
 import axios from 'axios'
 
-type Props = {
-  location: string
-}
+import { type Weather } from '@/app/_type/api'
 
-export const fetchingWeather = async (props: Props) => {
+export const fetchingWeather: (
+  location: string,
+) => Promise<Weather | null> = async (location: string) => {
   try {
-    const { location } = props
     const WEATHER_API_ENDPOINT = process.env.NEXT_PUBLIC_WEATHER_API_ENDPOINT
     const WEATHER_API_KEY = process.env.NEXT_PUBLIC_WEATHER_API_KEY
     if (WEATHER_API_ENDPOINT === undefined)
@@ -24,5 +23,6 @@ export const fetchingWeather = async (props: Props) => {
     return res.data
   } catch (err) {
     alert(err)
+    return null
   }
 }

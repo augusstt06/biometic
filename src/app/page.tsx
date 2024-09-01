@@ -4,10 +4,13 @@ import { useEffect, useState } from 'react'
 import BlinkText from '@/app/_components/blink/BlinkText'
 import Button from '@/app/_components/button/Button'
 import InputWithSelect from '@/app/_components/input/InputWithSelect'
+import { fetchingWeather } from '@/app/_modules/api/fetchingWeather'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
 import { useCacheStore } from '@/app/_store/cachingData'
+import { useWeatherStore } from '@/app/_store/weatherData'
 
 export default function Home() {
+  const { setWeather } = useWeatherStore()
   const { isCachingDataExist, setIsCachingDataExist, updateCacheStatus } =
     useCacheStore()
 
@@ -17,6 +20,22 @@ export default function Home() {
   // FIXME: 국내/해외 나눠야 하나?
   const selectArr = ['국내', '해외']
 
+  const getWeather = async () => {
+    try {
+      const weather = await fetchingWeather(location)
+      if (weather === null)
+        throw new Error('Problem occured while fetching weather')
+      setWeather(weather)
+    } catch (err) {
+      alert(err)
+    }
+  }
+  const cachingLocation = () => {
+    localStorage.setItem('location', JSON.stringify(location))
+    setIsCachingDataExist(true)
+    setLocation('')
+  }
+
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(e.target.value)
   }
@@ -24,14 +43,13 @@ export default function Home() {
     setSelectValue(e.target.value)
   }
 
-  const buttonClickHandler = () => {
+  const buttonClickHandler = async () => {
     if (!locationInputValidator(location)) {
       alert('Please Enter your location')
       return
     }
-    localStorage.setItem('location', JSON.stringify(location))
-    setIsCachingDataExist(true)
-    setLocation('')
+    void getWeather()
+    cachingLocation()
     alert(`Success ${selectValue}`)
   }
   useEffect(() => {
@@ -72,7 +90,9 @@ export default function Home() {
             <Button
               title="Apply"
               className={`relative px-4 py-2 left-1/2 -translate-x-1/2 rounded-lg border-[#588ac0] bg-[#588ac0] simple-transition hover:bg-[#476e99] ${locationInputValidator(location) ? 'opacity-100' : 'opacity-0'}`}
-              onClick={buttonClickHandler}
+              onClick={() => {
+                void buttonClickHandler()
+              }}
             />
           </article>
         </section>
