@@ -5,7 +5,8 @@ import React from 'react'
 import { ThemeProvider } from 'next-themes'
 
 import './globals.css'
-import Nav from '@/app/_components/nav/Nav'
+
+import Nav from '@/app/_components/organisms/nav/Nav'
 import { QueryProvider } from '@/app/_modules/providers/QueryProvider'
 
 export default function RootLayout({

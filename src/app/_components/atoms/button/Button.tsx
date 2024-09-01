@@ -7,10 +7,8 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 export default function Button(props: Props) {
   const { title, className, onClick } = props
   return (
-    <div>
-      <button className={className} onClick={onClick}>
-        {title}
-      </button>
-    </div>
+    <button className={className} onClick={onClick}>
+      {title}
+    </button>
   )
 }

@@ -1,5 +1,5 @@
-import Button from '@/app/_components/button/Button'
-import Input from '@/app/_components/input/Input'
+import Button from '@/app/_components/atoms/button/Button'
+import LabelInput from '@/app/_components/molecules/input/LabelInput'
 import { useCacheStore } from '@/app/_store/cachingData'
 
 export default function Nav() {
@@ -12,7 +12,7 @@ export default function Nav() {
         Weather AI
       </section>
       <section className=" col-start-2 col-span-3 place-content-center sort-row-flex gap-4">
-        <Input className="w-2/3" title="location" />
+        <LabelInput className="w-2/3" title="New Location" />
         <Button
           title="Search"
           className={`px-4 py-2 rounded-lg border-[#588ac0] bg-[#588ac0] simple-transition hover:bg-[#476e99]`}
