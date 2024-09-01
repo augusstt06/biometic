@@ -29,7 +29,7 @@
 }
 @layer utilities {
   .bg-cloudy {
-    background-image: url('../../public/bg/cloudy.webp');
+    background-image: url('../../public/bg/cloudy.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

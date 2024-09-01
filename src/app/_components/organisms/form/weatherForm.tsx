@@ -12,9 +12,9 @@ export default function WeatherForm() {
       <div className="bg-white bg-opacity-30 rounded-xl row-start-2 row-span-7 col-start-2 col-span-5 ">
         <div className="sort-col-flex pt-5">
           <span className="text-4xl">
-            {weatherClassificationToString(weather.weather[0].main)}
+            {weather && weatherClassificationToString(weather.weather[0].main)}
           </span>
-          {weatherClassificationToIcon(weather.weather[0].main)}
+          {weather && weatherClassificationToIcon(weather.weather[0].main)}
         </div>
       </div>
     </article>

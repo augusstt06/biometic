@@ -77,7 +77,7 @@ export default function Home() {
 
   return (
     <main
-      className={`grid-row-3 grid h-screen ${weatherClassificationToBackground(weather.weather[0].main)}`}
+      className={`grid-row-3 grid h-screen ${weather && weatherClassificationToBackground(weather.weather[0].main)}`}
     >
       {!isCachingDataExist && (
         <section className="place-content-center grid-row-2 grid w-full grid-cols-5 row-span-2 gap-8">
@@ -95,7 +95,7 @@ export default function Home() {
         </section>
       )}
 
-      <section>{isMounted && <WeatherForm />}</section>
+      <section>{isMounted && weather && <WeatherForm />}</section>
       <div>{isBlinkComplete}</div>
     </main>
   )

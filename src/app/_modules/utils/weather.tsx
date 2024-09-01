@@ -3,9 +3,13 @@ import { CLOUDS } from '@/app/_constant'
 export const weatherClassificationToIcon = (weatherSummary: string) => {
   switch (weatherSummary) {
     case CLOUDS:
-      return <img src="/gif/clouds.gif" alt="clouds" className="w-48 h-48" />
+      return (
+        <img src="/weather/cloudy.png" alt="clouds" className="w-40 h-40" />
+      )
     default:
-      return <img src="/gif/clo uds.gif" alt="clouds" className="w-52 h-52" />
+      return (
+        <img src="/weather/cloudy.png" alt="clouds" className="w-48 h-48" />
+      )
   }
 }
 
@@ -23,6 +27,6 @@ export const weatherClassificationToBackground = (weatherSummary: string) => {
     case CLOUDS:
       return 'bg-cloudy'
     default:
-      return 'bg-cloudy'
+      return ''
   }
 }
