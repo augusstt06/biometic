@@ -29,10 +29,7 @@
 }
 @layer utilities {
   .bg-cloudy {
-    background-image: url('../../public/bg/cloudy.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    @apply bg-[#B0C4DE];
   }
   .sort-row-flex {
     @apply flex flex-row items-center;

@@ -1,12 +1,19 @@
+import { useEffect, useState } from 'react'
+
 import Button from '@/app/_components/atoms/button/Button'
 import LabelInput from '@/app/_components/molecules/input/LabelInput'
-import { useCacheStore } from '@/app/_store/cachingData'
+import { useWeatherStore } from '@/app/_store/weatherData'
 
 export default function Nav() {
-  const { isCachingDataExist } = useCacheStore()
+  const { isCachingDataExist } = useWeatherStore()
+  const [isMounted, setIsMounted] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
   return (
     <nav
-      className={`h-20 grid grid-cols-5 fixed w-full fade-in bg-white ${isCachingDataExist ? 'opacity-100' : 'opacity-0'} bg-opacity-30`}
+      className={`h-20 grid grid-cols-5 fixed w-full fade-in bg-white ${isMounted && isCachingDataExist() ? 'opacity-100' : 'opacity-0'} bg-opacity-30`}
     >
       <section className=" place-content-center text-center">
         Weather AI
