@@ -9,25 +9,23 @@ import WeatherForm from '@/app/_components/organisms/form/weatherForm'
 import { fetchingWeather } from '@/app/_modules/api/fetchingWeather'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
 import { weatherClassificationToBackground } from '@/app/_modules/utils/weather'
-import { useCacheStore } from '@/app/_store/cachingData'
 import { useWeatherStore } from '@/app/_store/weatherData'
 
 export default function Home() {
   const queryClient = useQueryClient()
-  const { weather, setWeather } = useWeatherStore()
-  const { isCachingDataExist, setIsCachingDataExist, updateCacheStatus } =
-    useCacheStore()
+  const { weather, setWeather, setLocation, isCachingDataExist } =
+    useWeatherStore()
 
   const [isMounted, setIsMounted] = useState(false)
   const [isBlinkComplete, setIsBlinkComplete] = useState<boolean>(false)
-  const [location, setLocation] = useState<string>('')
+  const [locationValue, setLocationValue] = useState<string>('')
   const [selectValue, setSelectValue] = useState<string>('국내')
   // FIXME: 국내/해외 나눠야 하나?
   const selectArr = ['국내', '해외']
 
   const mutation = useMutation({
-    mutationFn: async (location: string) => {
-      const weather = await fetchingWeather(location)
+    mutationFn: async (locationValue: string) => {
+      const weather = await fetchingWeather(locationValue)
       if (weather === null) throw new Error('Failed to fetch weather')
       return weather
     },
@@ -42,44 +40,37 @@ export default function Home() {
   })
 
   const cachingLocation = () => {
-    localStorage.setItem('location', JSON.stringify(location))
-    setIsCachingDataExist(true)
-    setLocation('')
+    setLocation(locationValue)
+    setLocationValue('')
   }
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLocation(e.target.value)
+    setLocationValue(e.target.value)
   }
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectValue(e.target.value)
   }
 
   const buttonClickHandler = async () => {
-    if (!locationInputValidator(location)) {
+    if (!locationInputValidator(locationValue)) {
       alert('Please Enter your location')
       return
     }
-    mutation.mutate(location)
-    cachingLocation()
+    mutation.mutate(locationValue)
     alert(`Success ${selectValue}`)
   }
+
+  const sholudWeatherRender = isMounted && weather
 
   useEffect(() => {
     setIsMounted(true)
   }, [])
-  useEffect(() => {
-    updateCacheStatus()
-    window.addEventListener('storage', updateCacheStatus)
-    return () => {
-      window.removeEventListener('storage', updateCacheStatus)
-    }
-  }, [])
 
   return (
     <main
-      className={`grid-row-3 grid h-screen ${weatherClassificationToBackground(weather.weather[0].main)}`}
+      className={`grid-row-3 grid h-screen ${isMounted && weather && weatherClassificationToBackground(weather.weather[0].main)}`}
     >
-      {!isCachingDataExist && (
+      {isMounted && !isCachingDataExist() && (
         <section className="place-content-center grid-row-2 grid w-full grid-cols-5 row-span-2 gap-8">
           <MainTextForm setIsBlinkComplete={setIsBlinkComplete} />
           <InitialInputForm
@@ -87,7 +78,7 @@ export default function Home() {
               selectChangeHandler,
               inputChangeHandler,
               selectArr,
-              value: location,
+              value: locationValue,
               isBlinkComplete,
             }}
             buttonProps={{ buttonClickHandler }}
@@ -95,7 +86,13 @@ export default function Home() {
         </section>
       )}
 
-      <section>{isMounted && <WeatherForm />}</section>
+      {sholudWeatherRender ? (
+        <section>
+          <WeatherForm />
+        </section>
+      ) : (
+        <section></section>
+      )}
       <div>{isBlinkComplete}</div>
     </main>
   )
