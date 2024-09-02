@@ -21,9 +21,8 @@ export default function Home() {
   const [isMounted, setIsMounted] = useState(false)
   const [isBlinkComplete, setIsBlinkComplete] = useState<boolean>(false)
   const [locationValue, setLocationValue] = useState<string>('')
-  const [selectValue, setSelectValue] = useState<string>('국내')
-  // FIXME: 국내/해외 나눠야 하나?
-  const selectArr = ['국내', '해외']
+  // const [selectValue, setSelectValue] = useState<string>('국내')
+  const selectArr = ['국내']
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (locationValue: string) => {
@@ -50,7 +49,7 @@ export default function Home() {
     setLocationValue(e.target.value)
   }
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectValue(e.target.value)
+    // setSelectValue(e.target.value)
   }
 
   const buttonClickHandler = async () => {
@@ -59,7 +58,6 @@ export default function Home() {
       return
     }
     mutate(locationValue)
-    alert(`Success ${selectValue}`)
   }
 
   const sholudWeatherRender = isMounted && weather
