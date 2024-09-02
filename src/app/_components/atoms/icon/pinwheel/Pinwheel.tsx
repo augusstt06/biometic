@@ -51,7 +51,7 @@ export default function WindSpeedPinwheel(props: Props) {
           strokeLinejoin="round"
         />
       </svg>
-      <span className="mt-3">{speed}m/s</span>
+      <span className="mt-3 text-xl">{speed}m/s</span>
     </div>
   )
 }

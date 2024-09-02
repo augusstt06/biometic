@@ -8,6 +8,7 @@ import InitialInputForm from '@/app/_components/organisms/form/initialInputForm'
 import MainTextForm from '@/app/_components/organisms/form/mainTextForm'
 import WeatherForm from '@/app/_components/organisms/form/weatherForm'
 import { fetchingWeather } from '@/app/_modules/api/fetchingWeather'
+import { convertEngToKr } from '@/app/_modules/utils/convertKr'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
 import { weatherClassificationToBackground } from '@/app/_modules/utils/weather'
 import { useWeatherStore } from '@/app/_store/weatherData'
@@ -26,7 +27,7 @@ export default function Home() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (locationValue: string) => {
-      const weather = await fetchingWeather(locationValue)
+      const weather = await fetchingWeather(convertEngToKr(locationValue))
       if (weather === null) throw new Error('Failed to fetch weather')
       return weather
     },
