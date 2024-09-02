@@ -11,7 +11,7 @@
     width: 100vw;
     color: #fff;
     z-index: 1;
-    font-family: 'PermanentMarker', 'Sunflower';
+    font-family: 'Sunflower';
   }
 }
 @font-face {
@@ -28,9 +28,6 @@
   font-style: normal;
 }
 @layer utilities {
-  .bg-cloudy {
-    @apply bg-[#B0C4DE];
-  }
   .sort-row-flex {
     @apply flex flex-row items-center;
   }

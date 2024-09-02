@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import Fallback from '@/app/_components/organisms/fallback/Fallback'
 import InitialInputForm from '@/app/_components/organisms/form/initialInputForm'
 import MainTextForm from '@/app/_components/organisms/form/mainTextForm'
 import WeatherForm from '@/app/_components/organisms/form/weatherForm'
@@ -23,7 +24,7 @@ export default function Home() {
   // FIXME: 국내/해외 나눠야 하나?
   const selectArr = ['국내', '해외']
 
-  const mutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async (locationValue: string) => {
       const weather = await fetchingWeather(locationValue)
       if (weather === null) throw new Error('Failed to fetch weather')
@@ -56,7 +57,7 @@ export default function Home() {
       alert('Please Enter your location')
       return
     }
-    mutation.mutate(locationValue)
+    mutate(locationValue)
     alert(`Success ${selectValue}`)
   }
 
@@ -65,6 +66,9 @@ export default function Home() {
   useEffect(() => {
     setIsMounted(true)
   }, [])
+  if (isPending) {
+    return <Fallback />
+  }
 
   return (
     <main
