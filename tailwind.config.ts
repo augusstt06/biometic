@@ -14,6 +14,10 @@ const config: Config = {
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       keyframes: {
+        spin: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
         blink: {
           '0%, 50%, 100%': { opacity: '1' },
           '25%, 75%': { opacity: '0' },
@@ -21,6 +25,7 @@ const config: Config = {
       },
       animation: {
         blink: 'blink 2s step-end infinite',
+        spin: 'spin 1s minear infinite',
       },
     },
   },
