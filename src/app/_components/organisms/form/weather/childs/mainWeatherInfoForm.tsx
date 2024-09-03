@@ -31,7 +31,7 @@ export default function MainWeatherInfoForm() {
           </p>
         </span>
         {weather && weatherClassificationToIcon(weather.weather[0].main)}
-        <section className="w-full sort-row-flex justify-around">
+        <section className="w-2/3 sort-row-flex justify-around rounded-xl border-4 border-white-400 mt-5 py-2">
           {imgs.map((data) => (
             <img
               key={data.src}
