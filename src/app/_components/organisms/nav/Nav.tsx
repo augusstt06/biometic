@@ -22,7 +22,7 @@ export default function Nav() {
   const { mutate } = useMutation({
     mutationFn: async (locationValue: string) => {
       const weather = await fetchingWeather(convertEngToKr(locationValue))
-      if (weather === null) throw new Error('Failed to fetch weather')
+      if (weather === null) throw new Error('도시 이름을 확인해주세요.')
       return weather
     },
     onSuccess: (data) => {
@@ -31,7 +31,7 @@ export default function Nav() {
       cachingLocation()
     },
     onError: (error) => {
-      alert(error.message)
+      alert(error)
     },
   })
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +39,7 @@ export default function Nav() {
   }
   const buttonClickHandler = async () => {
     if (!locationInputValidator(locationValue)) {
-      alert('Please Enter your location')
+      alert('도시를 입력해주세요!')
       return
     }
     mutate(locationValue)

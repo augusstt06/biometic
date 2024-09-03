@@ -13,6 +13,7 @@ export const cityMap: Record<string, string> = {
   화성: 'Hwaseong',
   성남: 'Seongnam',
   남양주: 'Namyangju',
+  양주: 'Yangju',
   안산: 'Ansan',
   안양: 'Anyang',
   천안: 'Cheonan',

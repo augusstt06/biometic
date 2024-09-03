@@ -27,7 +27,7 @@ export default function Home() {
   const { mutate, isPending } = useMutation({
     mutationFn: async (locationValue: string) => {
       const weather = await fetchingWeather(convertEngToKr(locationValue))
-      if (weather === null) throw new Error('Failed to fetch weather')
+      if (weather === null) throw new Error('도시 이름이 잘못되었습니다.')
       return weather
     },
     onSuccess: (data) => {
@@ -36,7 +36,7 @@ export default function Home() {
       cachingLocation()
     },
     onError: (error) => {
-      alert(error.message)
+      alert(error)
     },
   })
 
@@ -54,7 +54,7 @@ export default function Home() {
 
   const buttonClickHandler = async () => {
     if (!locationInputValidator(locationValue)) {
-      alert('Please Enter your location')
+      alert('도시를 입력해주세요!')
       return
     }
     mutate(locationValue)

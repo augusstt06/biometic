@@ -42,6 +42,7 @@ export default function InitialInputForm(props: Props) {
       </div>
       <Button
         title="검색"
+        disabled={!locationInputValidator(value)}
         className={`relative px-4 py-2 rounded-lg border-[#2d7ecc] bg-[#2d7ecc] simple-transition hover:bg-[#476e99] ${locationInputValidator(value) ? 'opacity-100' : 'opacity-0'}`}
         onClick={() => {
           void buttonClickHandler()

@@ -34,7 +34,7 @@ export default function Progressbar(props: Props) {
       barColor = 'bg-blue-500'
     } else if (value < 20) {
       barColor = 'bg-light-blue-500'
-    } else if (value < 30) {
+    } else if (value < 60) {
       barColor = 'bg-green-500'
     } else {
       barColor = 'bg-red-500'

@@ -4,7 +4,9 @@ type Props = {
 
 const getRotationSpeed = (speed: number | undefined) => {
   if (speed === undefined) return 0
-  return Math.min(speed / 2, 60)
+
+  const calculatedSpeed = speed / 2
+  return 1 / Math.min(calculatedSpeed, 60)
 }
 
 export default function WindSpeedPinwheel(props: Props) {
