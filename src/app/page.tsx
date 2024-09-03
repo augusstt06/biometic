@@ -71,7 +71,7 @@ export default function Home() {
 
   return (
     <main
-      className={`grid-row-3 grid h-screen ${isMounted && weather && weatherClassificationToBackground(weather.weather[0].main)}`}
+      className={`grid-row-3 grid ${isMounted && weather && weatherClassificationToBackground(weather.weather[0].main)}`}
     >
       {isMounted && !isCachingDataExist() && (
         <section className="place-content-center grid-row-2 grid w-full grid-cols-5 row-span-2 gap-8">

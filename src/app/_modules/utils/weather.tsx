@@ -16,14 +16,32 @@ import {
 
 export const weatherClassificationToIcon = (weatherSummary: string) => {
   switch (weatherSummary) {
+    case RAIN:
+      return <img src="/weather/rain.png" alt="rain" className="w-36 h-36" />
+    case DRIZZLE:
+      return (
+        <img src="/weather/drizzle.png" alt="drizzle" className="w-36 h-36" />
+      )
+    case THUNDERSTORM:
+      return (
+        <img src="/weather/thunder.png" alt="thunder" className="w-36 h-36" />
+      )
     case CLOUDS:
       return (
-        <img src="/weather/cloudy.png" alt="clouds" className="w-40 h-40" />
+        <img src="/weather/cloudy.png" alt="clouds" className="w-36 h-36" />
+      )
+    case SNOW:
+      return <img src="/weather/snow.png" alt="snow" className="w-36 h-36" />
+    case MIST || FOG || HAZE:
+      return <img src="/weather/mist.png" alt="mist" className="w-36 h-36" />
+    case DUST || SAND || ASH:
+      return <img src="/weather/dust.png" alt="dust" className="w-36 h-36" />
+    case SQUALL || TORNADO:
+      return (
+        <img src="/weather/tornado.png" alt="tornado" className="w-36 h-36" />
       )
     default:
-      return (
-        <img src="/weather/cloudy.png" alt="clouds" className="w-48 h-48" />
-      )
+      return <img src="/weather/clear.png" alt="clear" className="w-36 h-36" />
   }
 }
 
