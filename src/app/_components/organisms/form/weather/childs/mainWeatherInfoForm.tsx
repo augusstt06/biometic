@@ -2,14 +2,23 @@ import {
   weatherClassificationToIcon,
   weatherClassificationToString,
 } from '@/app/_modules/utils/weather'
+import { useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
 
 export default function MainWeatherInfoForm() {
   const { weather, location } = useWeatherStore()
+  const { setIsChangeAiForm } = useAiStore()
+  const searchClickHandler = () => {
+    setIsChangeAiForm()
+  }
   const imgs = [
-    { src: '/icon/clothes.png', alt: 'clothes' },
-    { src: '/icon/outside.png', alt: 'outside' },
-    { src: '/icon/search.png', alt: 'search' },
+    { src: '/icon/clothes.png', alt: 'clothes', click: () => {} },
+    { src: '/icon/outside.png', alt: 'outside', clickHandler: () => {} },
+    {
+      src: '/icon/search.png',
+      alt: 'search',
+      clickHandler: searchClickHandler,
+    },
   ]
   return (
     <div className="relative pt-5 bg-white bg-opacity-30 rounded-xl py-5">
@@ -22,7 +31,6 @@ export default function MainWeatherInfoForm() {
           </p>
         </span>
         {weather && weatherClassificationToIcon(weather.weather[0].main)}
-        {/* <p>Ai Recommend </p> */}
         <section className="w-full sort-row-flex justify-around">
           {imgs.map((data) => (
             <img
@@ -30,6 +38,7 @@ export default function MainWeatherInfoForm() {
               src={data.src}
               alt={data.alt}
               className="w-16 h-16 cursor-pointer hover:scale-110 simple-transition"
+              onClick={data.clickHandler}
             />
           ))}
         </section>

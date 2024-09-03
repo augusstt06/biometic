@@ -1,14 +1,17 @@
 import Clouds from '@/app/_components/atoms/icon/clouds/Clouds'
 import Pinwheel from '@/app/_components/atoms/icon/pinwheel/Pinwheel'
 import Progressbar from '@/app/_components/atoms/progressbar/Progressbar'
+import { useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
 type TdetailData = {
   label: string
   type: 'temperature' | 'humidity'
   value: number | undefined
 }
-export default function ExtraWeatherInfoForm() {
+export default function DetailWeatherInfoForm() {
   const { weather } = useWeatherStore()
+  const { isChangeAiForm } = useAiStore()
+
   const detailData: TdetailData[] = [
     { label: '체감온도', type: 'temperature', value: weather?.main.feels_like },
     { label: '최고 온도', type: 'temperature', value: weather?.main.temp_max },
@@ -16,7 +19,7 @@ export default function ExtraWeatherInfoForm() {
     { label: '습도', type: 'humidity', value: weather?.main.humidity },
   ]
   return (
-    <div className="bg-white bg-opacity-30 rounded-xl grid grid-cols-2 grid-row-3 h-72">
+    <div className="bg-white bg-opacity-30 rounded-xl grid grid-cols-2 grid-row-3 h-72 ">
       {detailData.map((data) => (
         <span className="sort-col-flex justify-around px-5" key={data.label}>
           <p className="text-lg">{data.label}</p>
@@ -28,9 +31,9 @@ export default function ExtraWeatherInfoForm() {
         <p className="text-lg">구름 양</p>
         <Clouds cloudiness={weather?.clouds.all} />
       </span>
-      <span className="sort-col-flex justify-around px-5">
+      <span className={`sort-col-flex justify-around px-5 hidden`}>
         <p className="text-lg">바람 속도</p>
-        <Pinwheel speed={weather?.wind.speed} />
+        {!isChangeAiForm ? <Pinwheel speed={weather?.wind.speed} /> : <></>}
       </span>
     </div>
   )

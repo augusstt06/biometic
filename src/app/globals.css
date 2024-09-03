@@ -28,6 +28,13 @@
   font-style: normal;
 }
 @layer utilities {
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
   .sort-row-flex {
     @apply flex flex-row items-center;
   }

@@ -14,12 +14,9 @@ export default function WindSpeedPinwheel(props: Props) {
   const rotationSpeed = getRotationSpeed(speed)
 
   return (
-    <div className="relative sort-col-flex justify-center w-24 h-24 ">
+    <div className="relative sort-col-flex justify-center w-24 h-24">
       <svg
-        width="48"
-        height="48"
         viewBox="0 0 48 48"
-        fill="none"
         xmlns="http://www.w3.org/2000/svg"
         style={{ animation: `spin ${rotationSpeed}s linear infinite` }}
       >
