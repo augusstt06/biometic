@@ -1,3 +1,6 @@
+import axios from 'axios'
+
+import { cityMap } from '@/app/_constant/cities'
 import {
   weatherClassificationToIcon,
   weatherClassificationToString,
@@ -5,21 +8,50 @@ import {
 import { useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
 
+type BasicProps = {
+  type: string
+}
 export default function MainWeatherInfoForm() {
   const { weather, location } = useWeatherStore()
   const { setIsChangeAiForm } = useAiStore()
-  const searchClickHandler = () => {
+  const searchClickHandler = (type: string) => {
+    switch (type) {
+      case 'clothes':
+        void fetchingBasicOpenAi({ type: 'clothes' })
+        return
+      case 'outdoor':
+        void fetchingBasicOpenAi({ type: 'outdoor' })
+        return
+    }
     setIsChangeAiForm()
   }
   const imgs = [
-    { src: '/icon/clothes.png', alt: 'clothes', click: () => {} },
-    { src: '/icon/outside.png', alt: 'outside', clickHandler: () => {} },
+    { src: '/icon/clothes.png', alt: 'clothes' },
+    {
+      src: '/icon/outside.png',
+      alt: 'outdoor',
+    },
     {
       src: '/icon/search.png',
       alt: 'search',
-      clickHandler: searchClickHandler,
     },
   ]
+  const fetchingBasicOpenAi = async ({ type }: BasicProps) => {
+    try {
+      let inputValue: string
+      if (weather === null) throw new Error('No Weather Data')
+      switch (type) {
+        case 'clothes':
+          inputValue = `The weather is ${weather.weather[0].main} today. Please recommend what to wear.`
+          return await axios.post('/api/gpt', { inputValue })
+        default:
+          inputValue = `The weather is ${weather.weather[0].main} today. Please recommend outdoor activities in ${cityMap[location]}.`
+          return await axios.post('/api/gpt', { inputValue })
+      }
+    } catch (err) {
+      alert(err)
+    }
+  }
   return (
     <div className="relative pt-5 bg-white bg-opacity-30 rounded-xl py-5">
       <div className="sort-col-flex">
@@ -38,7 +70,9 @@ export default function MainWeatherInfoForm() {
               src={data.src}
               alt={data.alt}
               className="w-16 h-16 cursor-pointer hover:scale-110 simple-transition"
-              onClick={data.clickHandler}
+              onClick={() => {
+                searchClickHandler(data.alt)
+              }}
             />
           ))}
         </section>
