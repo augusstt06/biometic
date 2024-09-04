@@ -5,7 +5,7 @@ import {
   weatherClassificationToIcon,
   weatherClassificationToString,
 } from '@/app/_modules/utils/weather'
-import { useAiStore } from '@/app/_store/ai'
+import { type Response, useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
 
 type BasicProps = {
@@ -13,17 +13,17 @@ type BasicProps = {
 }
 export default function MainWeatherInfoForm() {
   const { weather, location } = useWeatherStore()
-  const { setIsChangeAiForm } = useAiStore()
+  const { viewAiInfo, setSimpleResponse } = useAiStore()
   const searchClickHandler = (type: string) => {
     switch (type) {
       case 'clothes':
         void fetchingBasicOpenAi({ type: 'clothes' })
-        return
+        break
       case 'outdoor':
         void fetchingBasicOpenAi({ type: 'outdoor' })
-        return
+        break
     }
-    setIsChangeAiForm()
+    viewAiInfo()
   }
   const imgs = [
     { src: '/icon/clothes.png', alt: 'clothes' },
@@ -36,18 +36,22 @@ export default function MainWeatherInfoForm() {
       alt: 'search',
     },
   ]
-  const fetchingBasicOpenAi = async ({ type }: BasicProps) => {
+  const fetchingBasicOpenAi = async ({ type }: BasicProps): Promise<void> => {
     try {
       let inputValue: string
       if (weather === null) throw new Error('No Weather Data')
       switch (type) {
-        case 'clothes':
-          inputValue = `The weather is ${weather.weather[0].main} today. Please recommend what to wear.`
-          return await axios.post('/api/gpt', { inputValue })
-        default:
-          inputValue = `The weather is ${weather.weather[0].main} today. Please recommend outdoor activities in ${cityMap[location]}.`
-          return await axios.post('/api/gpt', { inputValue })
+        case 'clothes': {
+          inputValue = `The weather is ${weather.weather[0].main} today. Please recommend what to wear. Please list it down to about 5 things. Without any other words, in the format 1. xx 2. xx using korean`
+          break
+        }
+        default: {
+          inputValue = `The weather is ${weather.weather[0].main} today. Please recommend outdoor activities in ${cityMap[location]}. All you have to do is list them down to 5 simple things and let me know using korean.`
+          break
+        }
       }
+      const res: Response = await axios.post('/api/gpt', { inputValue })
+      setSimpleResponse(res)
     } catch (err) {
       alert(err)
     }
