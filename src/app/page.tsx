@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import MainTextForm from '@/app/_components/molecules/form/mainTextForm'
 import Fallback from '@/app/_components/organisms/fallback/Fallback'
 import InitialInputForm from '@/app/_components/organisms/form/initialInputForm'
-import MainTextForm from '@/app/_components/organisms/form/mainTextForm'
 import WeatherForm from '@/app/_components/organisms/form/weather/weatherForm'
 import { fetchingWeather } from '@/app/_modules/api/fetchingWeather'
 import { convertEngToKr } from '@/app/_modules/utils/convertKr'
