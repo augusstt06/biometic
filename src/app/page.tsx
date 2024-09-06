@@ -3,11 +3,13 @@ import { useEffect, useState } from 'react'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { fetchWeather } from './_modules/api'
+import { type Weather } from './_type/api'
+
 import MainTextForm from '@/app/_components/molecules/form/mainTextForm'
 import Fallback from '@/app/_components/organisms/fallback/Fallback'
 import InitialInputForm from '@/app/_components/organisms/form/initialInputForm'
 import WeatherForm from '@/app/_components/organisms/form/weather/weatherForm'
-import { fetchingWeather } from '@/app/_modules/api/fetchingWeather'
 import { convertEngToKr } from '@/app/_modules/utils/convertKr'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
 import { weatherClassificationToBackground } from '@/app/_modules/utils/weather'
@@ -26,11 +28,11 @@ export default function Home() {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (locationValue: string) => {
-      const weather = await fetchingWeather(convertEngToKr(locationValue))
+      const weather = await fetchWeather(convertEngToKr(locationValue))
       if (weather === null) throw new Error('도시 이름이 잘못되었습니다.')
       return weather
     },
-    onSuccess: (data) => {
+    onSuccess: (data: Weather) => {
       setWeather(data)
       queryClient.setQueryData(['weather', data.weather[0].main], data)
       cachingLocation()

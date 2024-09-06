@@ -4,10 +4,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import Button from '@/app/_components/atoms/button/Button'
 import LabelInput from '@/app/_components/molecules/input/LabelInput'
-import { fetchingWeather } from '@/app/_modules/api/fetchingWeather'
+import { fetchWeather } from '@/app/_modules/api'
 import { convertEngToKr } from '@/app/_modules/utils/convertKr'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
 import { useWeatherStore } from '@/app/_store/weatherData'
+import { type Weather } from '@/app/_type/api'
 
 export default function Nav() {
   const queryClient = useQueryClient()
@@ -21,11 +22,11 @@ export default function Nav() {
   }
   const { mutate } = useMutation({
     mutationFn: async (locationValue: string) => {
-      const weather = await fetchingWeather(convertEngToKr(locationValue))
+      const weather = await fetchWeather(convertEngToKr(locationValue))
       if (weather === null) throw new Error('도시 이름을 확인해주세요.')
       return weather
     },
-    onSuccess: (data) => {
+    onSuccess: (data: Weather) => {
       setWeather(data)
       queryClient.setQueryData(['weather', data.weather[0].main], data)
       cachingLocation()
