@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 import axios from 'axios'
 
 import { cityMap } from '@/app/_constant/cities'
@@ -7,7 +9,6 @@ import {
 } from '@/app/_modules/utils/weather'
 import { type Response, useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
-import { useEffect } from 'react'
 
 type BasicProps = {
   type: string
