@@ -1,27 +1,10 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-export type AIResponse = {
-  id: string
-  object: string
-  created: number
-  model: string
-  choices: Array<{
-    index: number
-    message: {
-      role: string
-      content: string
-    }
-    finish_reason: string
-  }>
-  usage?: {
-    prompt_tokens: number
-    completion_tokens: number
-    total_tokens: number
-  }
-}
+import { type Ai } from '../_type/api'
+
 export type Response = {
-  data: AIResponse
+  data: Ai
   status: number
   statusText: string
 }
@@ -29,7 +12,7 @@ type State = {
   isChangeAiForm: boolean
   viewAiInfo: () => void
   viewWeatherInfo: () => void
-  simpleResponse: AIResponse | null
+  simpleResponse: Ai | null
   setSimpleResponse: (response: Response) => void
 }
 
