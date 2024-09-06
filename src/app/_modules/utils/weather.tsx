@@ -17,31 +17,57 @@ import {
 export const weatherClassificationToIcon = (weatherSummary: string) => {
   switch (weatherSummary) {
     case RAIN:
-      return <img src="/weather/rain.png" alt="rain" className="w-28 h-28" />
+      return (
+        <img src="/icon/weather/rain.png" alt="rain" className="w-28 h-28" />
+      )
     case DRIZZLE:
       return (
-        <img src="/weather/drizzle.png" alt="drizzle" className="w-28 h-28" />
+        <img
+          src="/icon/weather/drizzle.png"
+          alt="drizzle"
+          className="w-28 h-28"
+        />
       )
     case THUNDERSTORM:
       return (
-        <img src="/weather/thunder.png" alt="thunder" className="w-28 h-28" />
+        <img
+          src="/icon/weather/thunder.png"
+          alt="thunder"
+          className="w-28 h-28"
+        />
       )
     case CLOUDS:
       return (
-        <img src="/weather/cloudy.png" alt="clouds" className="w-28 h-28" />
+        <img
+          src="/icon/weather/cloudy.png"
+          alt="clouds"
+          className="w-28 h-28"
+        />
       )
     case SNOW:
-      return <img src="/weather/snow.png" alt="snow" className="w-28 h-28" />
+      return (
+        <img src="/icon/weather/snow.png" alt="snow" className="w-28 h-28" />
+      )
     case MIST || FOG || HAZE:
-      return <img src="/weather/mist.png" alt="mist" className="w-28 h-28" />
+      return (
+        <img src="/icon/weather/mist.png" alt="mist" className="w-28 h-28" />
+      )
     case DUST || SAND || ASH:
-      return <img src="/weather/dust.png" alt="dust" className="w-28 h-28" />
+      return (
+        <img src="/icon/weather/dust.png" alt="dust" className="w-28 h-28" />
+      )
     case SQUALL || TORNADO:
       return (
-        <img src="/weather/tornado.png" alt="tornado" className="w-28 h-28" />
+        <img
+          src="/icon/weather/tornado.png"
+          alt="tornado"
+          className="w-28 h-28"
+        />
       )
     default:
-      return <img src="/weather/clear.png" alt="clear" className="w-28 h-28" />
+      return (
+        <img src="/icon/weather/clear.png" alt="clear" className="w-28 h-28" />
+      )
   }
 }
 

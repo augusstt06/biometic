@@ -7,13 +7,15 @@ import {
 } from '@/app/_modules/utils/weather'
 import { type Response, useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
+import { useEffect } from 'react'
 
 type BasicProps = {
   type: string
 }
 export default function MainWeatherInfoForm() {
   const { weather, location } = useWeatherStore()
-  const { viewAiInfo, setSimpleResponse } = useAiStore()
+  const { isChangeAiForm, viewAiInfo, viewWeatherInfo, setSimpleResponse } =
+    useAiStore()
   const searchClickHandler = (type: string) => {
     switch (type) {
       case 'clothes':
@@ -23,7 +25,8 @@ export default function MainWeatherInfoForm() {
         void fetchingBasicOpenAi({ type: 'outdoor' })
         break
     }
-    viewAiInfo()
+    if (!isChangeAiForm) viewAiInfo()
+    else viewWeatherInfo()
   }
   const imgs = [
     { src: '/icon/clothes.png', alt: 'clothes' },
@@ -32,7 +35,7 @@ export default function MainWeatherInfoForm() {
       alt: 'outdoor',
     },
     {
-      src: '/icon/search.png',
+      src: isChangeAiForm ? '/icon/search.png' : 'icon/re.png',
       alt: 'search',
     },
   ]
@@ -56,6 +59,10 @@ export default function MainWeatherInfoForm() {
       alert(err)
     }
   }
+
+  useEffect(() => {
+    viewWeatherInfo()
+  }, [])
   return (
     <div className="relative pt-5 bg-white bg-opacity-30 rounded-xl py-5">
       <div className="sort-col-flex">
