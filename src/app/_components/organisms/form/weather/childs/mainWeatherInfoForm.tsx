@@ -15,19 +15,27 @@ type BasicProps = {
 }
 export default function MainWeatherInfoForm() {
   const { weather, location } = useWeatherStore()
-  const { isChangeAiForm, viewAiInfo, viewWeatherInfo, setSimpleResponse } =
-    useAiStore()
+  const {
+    isChangeAiForm,
+    isInputForm,
+    viewAiInfo,
+    viewWeatherInfo,
+    viewInputForm,
+    setSimpleResponse,
+  } = useAiStore()
   const searchClickHandler = (type: string) => {
     switch (type) {
       case 'clothes':
         void fetchingBasicOpenAi({ type: 'clothes' })
+        if (!isChangeAiForm) viewAiInfo()
         break
       case 'outdoor':
         void fetchingBasicOpenAi({ type: 'outdoor' })
+        if (!isChangeAiForm) viewAiInfo()
         break
+      default:
+        viewInputForm()
     }
-    if (!isChangeAiForm) viewAiInfo()
-    else viewWeatherInfo()
   }
   const imgs = [
     { src: '/icon/clothes.png', alt: 'clothes' },
@@ -36,7 +44,7 @@ export default function MainWeatherInfoForm() {
       alt: 'outdoor',
     },
     {
-      src: isChangeAiForm ? '/icon/search.png' : 'icon/re.png',
+      src: !isInputForm ? '/icon/search.png' : 'icon/re.png',
       alt: 'search',
     },
   ]

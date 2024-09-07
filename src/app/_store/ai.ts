@@ -10,8 +10,10 @@ export type Response = {
 }
 type State = {
   isChangeAiForm: boolean
+  isInputForm: boolean
   viewAiInfo: () => void
   viewWeatherInfo: () => void
+  viewInputForm: () => void
   simpleResponse: Ai | null
   setSimpleResponse: (response: Response) => void
 }
@@ -20,11 +22,15 @@ export const useAiStore = create<State>()(
   persist(
     (set, get) => ({
       isChangeAiForm: false,
+      isInputForm: false,
       viewAiInfo: () => {
         set({ isChangeAiForm: true })
       },
       viewWeatherInfo: () => {
         set({ isChangeAiForm: false })
+      },
+      viewInputForm: () => {
+        set({ isInputForm: !get().isInputForm, isChangeAiForm: true })
       },
       simpleResponse: null,
       setSimpleResponse: (response: Response) => {
