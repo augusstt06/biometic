@@ -13,28 +13,34 @@ import { useWeatherStore } from '@/app/_store/weatherData'
 type BasicProps = {
   type: string
 }
-export default function MainWeatherInfoForm() {
+export default function SummaryForm() {
   const { weather, location } = useWeatherStore()
   const {
     isChangeAiForm,
-    isInputForm,
     viewAiInfo,
     viewWeatherInfo,
-    viewInputForm,
+    setAiCategory,
     setSimpleResponse,
   } = useAiStore()
   const searchClickHandler = (type: string) => {
     switch (type) {
       case 'clothes':
         void fetchingBasicOpenAi({ type: 'clothes' })
+        setAiCategory('clothes')
         if (!isChangeAiForm) viewAiInfo()
         break
       case 'outdoor':
         void fetchingBasicOpenAi({ type: 'outdoor' })
+        setAiCategory('outdoor')
         if (!isChangeAiForm) viewAiInfo()
         break
+      case 'search':
+        if (!isChangeAiForm) viewAiInfo()
+        setAiCategory('search')
+        break
       default:
-        viewInputForm()
+        viewWeatherInfo()
+        setAiCategory('')
     }
   }
   const imgs = [
@@ -44,8 +50,12 @@ export default function MainWeatherInfoForm() {
       alt: 'outdoor',
     },
     {
-      src: !isInputForm ? '/icon/search.png' : 'icon/re.png',
+      src: '/icon/search.png',
       alt: 'search',
+    },
+    {
+      src: 'icon/re.png',
+      alt: 're',
     },
   ]
   const fetchingBasicOpenAi = async ({ type }: BasicProps): Promise<void> => {

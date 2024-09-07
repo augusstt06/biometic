@@ -1,9 +1,9 @@
 import AiForm from './AiForm'
-import DetailWeatherInfoForm from './detailWeatherInfoForm'
+import DetailWeather from './detailWeather'
 
 import { useAiStore } from '@/app/_store/ai'
 
-export default function SubWeatherCardForm() {
+export default function DetailForm() {
   const { isChangeAiForm } = useAiStore()
 
   return (
@@ -13,7 +13,7 @@ export default function SubWeatherCardForm() {
           isChangeAiForm ? 'rotate-y-180' : ''
         }`}
       >
-        <DetailWeatherInfoForm />
+        <DetailWeather />
       </div>
       <div
         className={`absolute inset-0 backface-hidden transform simple-transition ${

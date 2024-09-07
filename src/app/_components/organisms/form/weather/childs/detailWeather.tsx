@@ -8,7 +8,7 @@ type TdetailData = {
   type: 'temperature' | 'humidity'
   value: number | undefined
 }
-export default function DetailWeatherInfoForm() {
+export default function DetailWeather() {
   const { weather } = useWeatherStore()
   const { isChangeAiForm } = useAiStore()
 

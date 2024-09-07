@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import MainWeatherInfoForm from './childs/mainWeatherInfoForm'
-import SubWeatherCardForm from './childs/subWeatherCardForm'
+import DetailInfo from './childs/detailForm'
+import SummaryForm from './childs/summaryForm'
 
 export default function WeatherForm() {
   const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -15,8 +15,8 @@ export default function WeatherForm() {
       <div
         className={`row-start-2 row-span-7 col-start-2 col-span-5 fade-in ${isMounted ? 'opacity-100' : 'opacity-0'} space-y-6`}
       >
-        <MainWeatherInfoForm />
-        <SubWeatherCardForm />
+        <SummaryForm />
+        <DetailInfo />
       </div>
     </article>
   )
