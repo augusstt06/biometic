@@ -2,9 +2,9 @@ import { type ChangeEvent, useState } from 'react'
 
 import Button from '@/app/_components/atoms/button/Button'
 import LabelInput from '@/app/_components/molecules/input/LabelInput'
-import { fetchOpenAi } from '@/app/_modules/api'
+// import { fetchOpenAi } from '@/app/_modules/api'
 import { useAiStore } from '@/app/_store/ai'
-import { useMutation } from '@tanstack/react-query'
+// import { useMutation } from '@tanstack/react-query'
 
 export default function AiForm() {
   const { simpleResponse, category } = useAiStore()
@@ -24,14 +24,14 @@ export default function AiForm() {
     if (msg === undefined) return []
     return msg.split(/(?=\d\.\s)/)
   }
-  const { mutate, isPending } = useMutation({
-    mutationFn: async () => {
-      const res = await fetchOpenAi(inputValue)
-      return res
-    },
-    onSuccess: (data) => {},
-    onError: () => {},
-  })
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: async () => {
+  //     const res = await fetchOpenAi(inputValue)
+  //     return res
+  //   },
+  //   onSuccess: (data) => {},
+  //   onError: () => {},
+  // })
   const renderAiForm = () => {
     switch (category) {
       case 'search':
