@@ -4,6 +4,7 @@ import Button from '@/app/_components/atoms/button/Button'
 import LabelInput from '@/app/_components/molecules/input/LabelInput'
 import { fetchOpenAi } from '@/app/_modules/api'
 import { useAiStore } from '@/app/_store/ai'
+import { useMutation } from '@tanstack/react-query'
 
 export default function AiForm() {
   const { simpleResponse, category } = useAiStore()
@@ -15,20 +16,28 @@ export default function AiForm() {
   const clickHandler = () => {
     if (inputValue.trim() === '') {
       alert('입력란을 채워주세요!')
-      return
+      // return
     }
-    void fetchOpenAi(inputValue)
+    // void fetchOpenAi(inputValue)
   }
   const seperateString = (msg: string | undefined) => {
     if (msg === undefined) return []
     return msg.split(/(?=\d\.\s)/)
   }
+  const { mutate, isPending } = useMutation({
+    mutationFn: async () => {
+      const res = await fetchOpenAi(inputValue)
+      return res
+    },
+    onSuccess: (data) => {},
+    onError: () => {},
+  })
   const renderAiForm = () => {
     switch (category) {
       case 'search':
         return (
-          <div className="sort-col-flex space-y-2  h-full w-2/3 relative rounded-lg">
-            <div className="absolute top-44 w-2/3 sort-row-flex justify-center space-x-3">
+          <div className="sort-col-flex relative w-2/3 h-full space-y-2 rounded-lg">
+            <div className="top-44 sort-row-flex absolute justify-center w-2/3 space-x-3">
               <LabelInput
                 title="search"
                 className="w-2/3"
@@ -55,8 +64,8 @@ export default function AiForm() {
     }
   }
   return (
-    <article className="bg-white bg-opacity-30 rounded-xl h-72 sort-col-flex space-y-4">
-      <h1 className="text-lg px-3 py-2">Ai Recommend</h1>
+    <article className="bg-opacity-30 rounded-xl h-72 sort-col-flex space-y-4 bg-white">
+      <h1 className="px-3 py-2 text-lg">Ai Recommend</h1>
       {renderAiForm()}
     </article>
   )
