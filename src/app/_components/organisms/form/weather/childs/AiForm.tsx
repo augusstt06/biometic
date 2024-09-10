@@ -3,13 +3,13 @@ import { type ChangeEvent, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 
 import Bubble from '@/app/_components/atoms/bubble/Bubble'
-import Button from '@/app/_components/atoms/button/Button'
-import LabelInput from '@/app/_components/molecules/input/LabelInput'
+import AiBubbleForm from '@/app/_components/organisms/form/ai/aiBubbleForm'
+import AiInputForm from '@/app/_components/organisms/form/ai/aiInputForm'
 import { fetchOpenAi } from '@/app/_modules/api'
 import { useAiStore } from '@/app/_store/ai'
 import { type AiResponse } from '@/app/_type/api'
 
-type Chat = {
+export type Chat = {
   type: 'chat' | 'user'
   text: string
 }
@@ -66,38 +66,21 @@ export default function AiForm() {
       case 'search':
         return (
           <div className="grid grid-rows-8 relative w-5/6 h-full space-y-2 rounded-lg ">
-            <div className="w-full h-full max-h-44 overflow-scroll row-start-1 row-span-6">
-              {chatQue.map((data) => (
-                <div
-                  key={data.text}
-                  className={`flex w-full ${
-                    data.type === 'chat' ? 'justify-start' : 'justify-end'
-                  }`}
-                >
-                  <Bubble type={data.type}>{data.text}</Bubble>
-                </div>
-              ))}
-            </div>
-            <div className="sort-row-flex justify-center w-2/3 space-x-3 fixed top-56 left-1/2 -translate-x-1/2">
-              <LabelInput
-                title="search"
-                className="w-2/3"
-                onChange={changeHandler}
-              />
-              <Button
-                title="검색"
-                className="bg-[#588ac0] px-4 py-3 rounded-lg hover:bg-[#476e99] simple-transition"
-                onClick={clickHandler}
-              />
-            </div>
+            <AiBubbleForm chatQue={chatQue} />
+            <AiInputForm
+              changeHandler={changeHandler}
+              clickHandler={clickHandler}
+            />
           </div>
         )
       default:
         return (
-          <div className="sort-col-flex space-y-2">
+          <div className="sort-col-flex space-y-2 w-2/3 justify-center">
             {seperateString(simpleResponse?.choices[0].message.content).map(
               (data) => (
-                <p key={data}>{data.trim()}</p>
+                <Bubble key={data} type="chat">
+                  {data.trim()}
+                </Bubble>
               ),
             )}
           </div>

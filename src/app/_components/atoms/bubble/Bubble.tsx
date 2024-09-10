@@ -1,6 +1,5 @@
 type Props = {
   type: 'chat' | 'user'
-
   children: React.ReactNode
 }
 

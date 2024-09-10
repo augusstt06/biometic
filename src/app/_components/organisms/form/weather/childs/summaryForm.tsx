@@ -53,10 +53,7 @@ export default function SummaryForm() {
       src: '/icon/search.png',
       alt: 'search',
     },
-    {
-      src: 'icon/re.png',
-      alt: 're',
-    },
+    ...(!isChangeAiForm ? [] : [{ src: 'icon/re.png', alt: 're' }]),
   ]
   const fetchingBasicOpenAi = async ({ type }: BasicProps): Promise<void> => {
     try {
@@ -99,7 +96,7 @@ export default function SummaryForm() {
               key={data.src}
               src={data.src}
               alt={data.alt}
-              className="w-16 h-16 cursor-pointer hover:scale-110 simple-transition"
+              className={`${data.alt === 're' ? 'w-12 h-12' : 'w-16 h-16'} cursor-pointer hover:scale-110 simple-transition`}
               onClick={() => {
                 searchClickHandler(data.alt)
               }}
