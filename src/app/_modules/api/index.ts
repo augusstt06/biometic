@@ -7,7 +7,7 @@ export const fetchWeather = async (location: string) => {
     })
     return data
   } catch (err) {
-    alert(err)
+    throw new Error('도시를 찾을수 없습니다!')
   }
 }
 

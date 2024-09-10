@@ -31,14 +31,16 @@ export default function Nav() {
       return weather
     },
     onSuccess: (data: Weather) => {
-      setWeather(data)
-      queryClient.setQueryData(['weather', data.weather[0].main], data)
-      setLocationValue('')
-      cachingLocation()
+      if (data !== undefined) {
+        setWeather(data)
+        queryClient.setQueryData(['weather', data.weather[0].main], data)
+        setLocationValue('')
+        cachingLocation()
+      }
     },
-    onError: (error) => {
+    onError: () => {
+      alert('날씨를 불러오던중 오류가 발생했습니다.')
       setLocationValue('')
-      alert(error)
     },
   })
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
