@@ -7,8 +7,9 @@ import {
   weatherClassificationToIcon,
   weatherClassificationToString,
 } from '@/app/_modules/utils/weather'
-import { type Response, useAiStore } from '@/app/_store/ai'
+import { useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
+import { type SimpleAiResponse } from '@/app/_type/api'
 
 type BasicProps = {
   type: string
@@ -69,7 +70,7 @@ export default function SummaryForm() {
           break
         }
       }
-      const res: Response = await axios.post('/api/gpt', { inputValue })
+      const res: SimpleAiResponse = await axios.post('/api/gpt', { inputValue })
       setSimpleResponse(res)
     } catch (err) {
       alert(err)

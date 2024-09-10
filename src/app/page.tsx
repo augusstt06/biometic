@@ -3,17 +3,16 @@ import { useEffect, useState } from 'react'
 
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { fetchWeather } from './_modules/api'
-import { type Weather } from './_type/api'
-
 import MainTextForm from '@/app/_components/molecules/form/mainTextForm'
 import Fallback from '@/app/_components/organisms/fallback/Fallback'
 import InitialInputForm from '@/app/_components/organisms/form/initialInputForm'
 import WeatherForm from '@/app/_components/organisms/form/weather/weatherForm'
+import { fetchWeather } from '@/app/_modules/api'
 import { convertEngToKr } from '@/app/_modules/utils/convertKr'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
 import { weatherClassificationToBackground } from '@/app/_modules/utils/weather'
 import { useWeatherStore } from '@/app/_store/weatherData'
+import { type Weather } from '@/app/_type/api'
 
 export default function Home() {
   const queryClient = useQueryClient()

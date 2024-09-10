@@ -1,13 +1,8 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { type Ai } from '../_type/api'
+import { type Ai, type SimpleAiResponse } from '@/app/_type/api'
 
-export type Response = {
-  data: Ai
-  status: number
-  statusText: string
-}
 type State = {
   isChangeAiForm: boolean
   category: string
@@ -15,7 +10,7 @@ type State = {
   viewAiInfo: () => void
   viewWeatherInfo: () => void
   simpleResponse: Ai | null
-  setSimpleResponse: (response: Response) => void
+  setSimpleResponse: (response: SimpleAiResponse) => void
 }
 
 export const useAiStore = create<State>()(
@@ -33,7 +28,7 @@ export const useAiStore = create<State>()(
         set({ isChangeAiForm: false })
       },
       simpleResponse: null,
-      setSimpleResponse: (response: Response) => {
+      setSimpleResponse: (response: SimpleAiResponse) => {
         set({ simpleResponse: response.data })
       },
     }),

@@ -5,14 +5,11 @@ import { useMutation } from '@tanstack/react-query'
 import Bubble from '@/app/_components/atoms/bubble/Bubble'
 import AiBubbleForm from '@/app/_components/organisms/form/ai/aiBubbleForm'
 import AiInputForm from '@/app/_components/organisms/form/ai/aiInputForm'
+import { BOT, USER } from '@/app/_constant'
 import { fetchOpenAi } from '@/app/_modules/api'
 import { useAiStore } from '@/app/_store/ai'
-import { type AiResponse } from '@/app/_type/api'
-
-export type Chat = {
-  type: 'chat' | 'user'
-  text: string
-}
+import { type Chat } from '@/app/_type'
+import { type AiChatResponse } from '@/app/_type/api'
 
 export default function AiForm() {
   const { simpleResponse, category } = useAiStore()
@@ -29,8 +26,8 @@ export default function AiForm() {
     } else {
       setChatQue((prev) => [
         ...prev,
-        { type: 'user', text: inputValue },
-        { type: 'chat', text: '...' },
+        { type: USER, text: inputValue },
+        { type: BOT, text: '...' },
       ])
     }
     mutate()
@@ -41,14 +38,14 @@ export default function AiForm() {
   }
   const { mutate } = useMutation({
     mutationFn: async () => {
-      const res: Promise<AiResponse[]> = await fetchOpenAi(inputValue)
+      const res: Promise<AiChatResponse[]> = await fetchOpenAi(inputValue)
       return res
     },
     onSuccess: (data) => {
       setChatQue((prev) => {
         const newQue = [...prev]
         newQue[newQue.length - 1] = {
-          type: 'chat',
+          type: BOT,
           text: data[0].message.content,
         }
         return newQue
@@ -75,10 +72,10 @@ export default function AiForm() {
         )
       default:
         return (
-          <div className="sort-col-flex space-y-2 w-2/3 justify-center">
+          <div className="sort-col-flex space-y-2 w-2/3 justify-center pb-5">
             {seperateString(simpleResponse?.choices[0].message.content).map(
               (data) => (
-                <Bubble key={data} type="chat">
+                <Bubble key={data} type={BOT}>
                   {data.trim()}
                 </Bubble>
               ),

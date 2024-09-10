@@ -3,7 +3,7 @@ import Pinwheel from '@/app/_components/atoms/icon/pinwheel/Pinwheel'
 import Progressbar from '@/app/_components/atoms/progressbar/Progressbar'
 import { useAiStore } from '@/app/_store/ai'
 import { useWeatherStore } from '@/app/_store/weatherData'
-type TdetailData = {
+type Data = {
   label: string
   type: 'temperature' | 'humidity'
   value: number | undefined
@@ -12,7 +12,7 @@ export default function DetailWeather() {
   const { weather } = useWeatherStore()
   const { isChangeAiForm } = useAiStore()
 
-  const detailData: TdetailData[] = [
+  const detailData: Data[] = [
     { label: '체감온도', type: 'temperature', value: weather?.main.feels_like },
     { label: '최고 온도', type: 'temperature', value: weather?.main.temp_max },
     { label: '최저 온도', type: 'temperature', value: weather?.main.temp_min },

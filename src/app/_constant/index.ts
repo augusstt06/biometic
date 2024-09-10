@@ -13,3 +13,8 @@ export const SAND = 'Sand'
 export const ASH = 'Ash'
 export const SQUALL = 'Squall'
 export const TORNADO = 'Tornado'
+
+// variables
+
+export const USER = 'user'
+export const BOT = 'bot'

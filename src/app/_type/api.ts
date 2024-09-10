@@ -64,11 +64,17 @@ export type Weather = {
   cod: number
 }
 
-export type AiResponse = {
+export type AiChatResponse = {
   finish_reason: string
   index: number
   message: {
     role: string
     content: string
   }
+}
+
+export type SimpleAiResponse = {
+  data: Ai
+  status: number
+  statusText: string
 }
