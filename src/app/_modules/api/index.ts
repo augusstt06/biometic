@@ -14,7 +14,8 @@ export const fetchWeather = async (location: string) => {
 export const fetchOpenAi = async (inputValue: string) => {
   try {
     const { data } = await axios.post('/api/gpt', { inputValue })
-    return data
+
+    return data.choices
   } catch (err) {
     alert(err)
   }

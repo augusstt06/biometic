@@ -63,3 +63,12 @@ export type Weather = {
   name: string
   cod: number
 }
+
+export type AiResponse = {
+  finish_reason: string
+  index: number
+  message: {
+    role: string
+    content: string
+  }
+}
