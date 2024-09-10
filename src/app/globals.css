@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    padding: 0;
+    margin: 0;
+    background: #87c4ff;
+    height: 100vh;
+    width: 100vw;
+    color: #fff;
+    z-index: 1;
+    font-family: 'Sunflower';
+  }
+}
+@font-face {
+  font-family: 'PermanentMarker';
+  src: url('../../public/fonts/PermanentMarker.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sunflower';
+  src: url('../../public/fonts/Sunflower.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@layer utilities {
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .sort-row-flex {
+    @apply flex flex-row items-center;
+  }
+  .sort-col-flex {
+    @apply flex flex-col items-center;
+  }
+  .simple-transition {
+    @apply transition-all ease-in-out duration-700;
+  }
+
+  .fade-in {
+    @apply transition-opacity duration-[2000ms];
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pinwheel {
+  animation: spin 1s linear infinite;
+}

@@ -4,6 +4,11 @@ import React from 'react'
 
 import { ThemeProvider } from 'next-themes'
 
+import './globals.css'
+
+import Nav from '@/app/_components/organisms/nav/Nav'
+import { QueryProvider } from '@/app/_modules/providers/QueryProvider'
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -12,7 +17,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body>
-        <ThemeProvider attribute="class">{children}</ThemeProvider>
+        <ThemeProvider attribute="class">
+          <QueryProvider>
+            <Nav />
+            {children}
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   )
