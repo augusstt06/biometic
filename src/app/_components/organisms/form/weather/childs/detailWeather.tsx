@@ -2,7 +2,7 @@ import Clouds from '@/app/_components/atoms/icon/clouds/Clouds'
 import Pinwheel from '@/app/_components/atoms/icon/pinwheel/Pinwheel'
 import Progressbar from '@/app/_components/atoms/progressbar/Progressbar'
 import { useAiStore } from '@/app/_store/ai'
-import { useWeatherStore } from '@/app/_store/weatherData'
+import { useWeatherStore } from '@/app/_store/weather'
 type Data = {
   label: string
   type: 'temperature' | 'humidity'

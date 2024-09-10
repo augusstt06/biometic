@@ -11,7 +11,7 @@ import { fetchWeather } from '@/app/_modules/api'
 import { convertEngToKr } from '@/app/_modules/utils/convertKr'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
 import { weatherClassificationToBackground } from '@/app/_modules/utils/weather'
-import { useWeatherStore } from '@/app/_store/weatherData'
+import { useWeatherStore } from '@/app/_store/weather'
 import { type Weather } from '@/app/_type/api'
 
 export default function Home() {

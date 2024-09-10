@@ -8,13 +8,18 @@ import AiInputForm from '@/app/_components/organisms/form/ai/aiInputForm'
 import { BOT, USER } from '@/app/_constant'
 import { fetchOpenAi } from '@/app/_modules/api'
 import { useAiStore } from '@/app/_store/ai'
-import { type Chat } from '@/app/_type'
+// import { type Chat } from '@/app/_type'
 import { type AiChatResponse } from '@/app/_type/api'
 
 export default function AiForm() {
-  const { simpleResponse, category } = useAiStore()
+  const {
+    simpleResponse,
+    category,
+    chatQue,
+    setChatQue,
+    deleteLoadingChatQue,
+  } = useAiStore()
   const [inputValue, setInputValue] = useState<string>('')
-  const [chatQue, setChatQue] = useState<Chat[]>([])
   const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
   }
@@ -24,11 +29,8 @@ export default function AiForm() {
       alert('입력란을 채워주세요!')
       return
     } else {
-      setChatQue((prev) => [
-        ...prev,
-        { type: USER, text: inputValue },
-        { type: BOT, text: '...' },
-      ])
+      setChatQue({ type: USER, text: inputValue })
+      setChatQue({ type: BOT, text: '...' })
     }
     mutate()
   }
@@ -42,13 +44,9 @@ export default function AiForm() {
       return res
     },
     onSuccess: (data) => {
-      setChatQue((prev) => {
-        const newQue = [...prev]
-        newQue[newQue.length - 1] = {
-          type: BOT,
-          text: data[0].message.content,
-        }
-        return newQue
+      deleteLoadingChatQue({
+        type: BOT,
+        text: data[0].message.content,
       })
 
       setInputValue('')
@@ -65,6 +63,7 @@ export default function AiForm() {
           <div className="grid grid-rows-8 relative w-5/6 h-full space-y-2 rounded-lg ">
             <AiBubbleForm chatQue={chatQue} />
             <AiInputForm
+              value={inputValue}
               changeHandler={changeHandler}
               clickHandler={clickHandler}
             />

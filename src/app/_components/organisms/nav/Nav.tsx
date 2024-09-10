@@ -8,11 +8,13 @@ import NavInput from '@/app/_components/molecules/nav/NavInput'
 import { fetchWeather } from '@/app/_modules/api'
 import { convertEngToKr } from '@/app/_modules/utils/convertKr'
 import { locationInputValidator } from '@/app/_modules/utils/inputValidate'
-import { useWeatherStore } from '@/app/_store/weatherData'
+import { useAiStore } from '@/app/_store/ai'
+import { useWeatherStore } from '@/app/_store/weather'
 import { type Weather } from '@/app/_type/api'
 
 export default function Nav() {
   const queryClient = useQueryClient()
+  const { viewWeatherInfo } = useAiStore()
   const { setWeather, setLocation, isCachingDataExist } = useWeatherStore()
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const [locationValue, setLocationValue] = useState<string>('')
@@ -31,6 +33,7 @@ export default function Nav() {
     onSuccess: (data: Weather) => {
       setWeather(data)
       queryClient.setQueryData(['weather', data.weather[0].main], data)
+      setLocationValue('')
       cachingLocation()
     },
     onError: (error) => {
@@ -47,6 +50,7 @@ export default function Nav() {
       return
     }
     mutate(locationValue)
+    viewWeatherInfo()
   }
   useEffect(() => {
     setIsMounted(true)
@@ -57,6 +61,7 @@ export default function Nav() {
     >
       <NavIcon />
       <NavInput
+        value={locationValue}
         changeHandler={inputChangeHandler}
         clickHandler={buttonClickHandler}
       />

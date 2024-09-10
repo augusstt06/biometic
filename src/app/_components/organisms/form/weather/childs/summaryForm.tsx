@@ -8,7 +8,7 @@ import {
   weatherClassificationToString,
 } from '@/app/_modules/utils/weather'
 import { useAiStore } from '@/app/_store/ai'
-import { useWeatherStore } from '@/app/_store/weatherData'
+import { useWeatherStore } from '@/app/_store/weather'
 import { type SimpleAiResponse } from '@/app/_type/api'
 
 type BasicProps = {

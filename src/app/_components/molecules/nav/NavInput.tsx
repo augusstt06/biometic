@@ -4,16 +4,18 @@ import LabelInput from '../input/LabelInput'
 type Props = {
   changeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void
   clickHandler: () => Promise<void>
+  value: string
 }
 
 export default function NavInput(props: Props) {
-  const { changeHandler, clickHandler } = props
+  const { changeHandler, clickHandler, value } = props
   return (
     <section className=" col-start-2 col-span-3 place-content-center sort-row-flex gap-4">
       <LabelInput
         className="w-2/3"
         title="New Location"
         onChange={changeHandler}
+        value={value}
       />
       <Button
         title="Search"
