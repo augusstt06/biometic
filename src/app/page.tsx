@@ -23,13 +23,13 @@ export default function Home() {
   const [isMounted, setIsMounted] = useState(false)
   const [isBlinkComplete, setIsBlinkComplete] = useState<boolean>(false)
   const [locationValue, setLocationValue] = useState<string>('')
-  // const [selectValue, setSelectValue] = useState<string>('국내')
   const selectArr = ['국내']
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (locationValue: string) => {
       const weather = await fetchWeather(convertEngToKr(locationValue))
-      if (weather === null) throw new Error('도시 이름이 잘못되었습니다.')
+      if (weather === null)
+        throw new Error('도시를 찾을수 없습니다 다시 입력해주세요.')
       return weather
     },
     onSuccess: (data: Weather) => {
@@ -38,6 +38,7 @@ export default function Home() {
       cachingLocation()
     },
     onError: (error) => {
+      setLocationValue('')
       alert(error)
     },
   })
@@ -50,9 +51,7 @@ export default function Home() {
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocationValue(e.target.value)
   }
-  const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    // setSelectValue(e.target.value)
-  }
+  const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {}
 
   const buttonClickHandler = async () => {
     if (!locationInputValidator(locationValue)) {

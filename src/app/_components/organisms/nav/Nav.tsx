@@ -12,7 +12,8 @@ import { type Weather } from '@/app/_type/api'
 
 export default function Nav() {
   const queryClient = useQueryClient()
-  const { setWeather, setLocation, isCachingDataExist } = useWeatherStore()
+  const { setWeather, setLocation, isCachingDataExist, resetWeather } =
+    useWeatherStore()
   const [isMounted, setIsMounted] = useState<boolean>(false)
   const [locationValue, setLocationValue] = useState<string>('')
 
@@ -52,8 +53,17 @@ export default function Nav() {
     <nav
       className={`h-20 grid grid-cols-5 fixed w-full fade-in bg-white ${isMounted && isCachingDataExist() ? 'opacity-100' : 'opacity-0'} bg-opacity-30`}
     >
-      <section className=" place-content-center text-center">
+      <section
+        className="place-content-center text-center sort-row-flex hover:scale-110 simple-transition cursor-pointer"
+        onClick={resetWeather}
+      >
         Weather AI
+        <img
+          src="/icon/cat.png"
+          alt="kuku"
+          className="w-12 h-12"
+          onClick={resetWeather}
+        />
       </section>
       <section className=" col-start-2 col-span-3 place-content-center sort-row-flex gap-4">
         <LabelInput
