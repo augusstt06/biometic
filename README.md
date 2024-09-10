@@ -7,6 +7,10 @@ Open AI (Chat GPT) API와 [Weatherstack API](https://weatherstack.com/documentat
 - Weatherstack API를 사용해 특정 위치의 날씨를 보여준다.
 - 해당 날씨를 기준으로 AI 를 사용해 옷차림, 활동 추천 등 여러 카테고리의 조언을 간편하게 구할수 있다.
 
+## Domain
+
+`https://weather-mini-ai.vercel.app`
+
 ## Stack
 
 <div>
